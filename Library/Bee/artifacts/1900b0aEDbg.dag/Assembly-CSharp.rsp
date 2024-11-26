@@ -392,6 +392,7 @@
 "Assets/Scripts/ColorCar.cs"
 "Assets/Scripts/DrivingScript.cs"
 "Assets/Scripts/Fuel.cs"
+"Assets/Scripts/Leaderboard.cs"
 "Assets/Scripts/NumCheckPoints.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/RaceController.cs"
