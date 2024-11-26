@@ -35,7 +35,7 @@ public class Leaderboard
     {
         int position = lap * 1000 + checkPoint;
         board[rego] = new Car(board[rego].name,position);
-    }
+    }  
     public static List<string> GetPlaces()
     {
         List<string> places = new List<string>();
