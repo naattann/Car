@@ -1,5 +1,13 @@
 sceneSetups:
 - path: Assets/CartoonTracksPack1/Track1/Demo Scenes/complete_track_demo.unity
+  isLoaded: 0
+  isActive: 0
+  isSubScene: 0
+- path: Assets/Scenes/Menu.unity
   isLoaded: 1
   isActive: 1
+  isSubScene: 0
+- path: Assets/Scenes/TestTrack.unity
+  isLoaded: 1
+  isActive: 0
   isSubScene: 0
