@@ -25,7 +25,12 @@ public class Leaderboard
         board.Clear();
         carRegistered = -1;
     }
-
+    public static int RegisterCar(string name)
+    {
+        carsRegistered++;
+        board.Add(carsRegistered, new Car(name, 0));
+        return carsRegistered;
+    }
     public static void SetPosition(int rego, int lap, int checkPoint)
     {
         int position = lap * 1000 + checkPoint;
