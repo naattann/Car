@@ -5013,7 +5013,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6dbbc7a458c2e40a5545d149a5b4cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placesNumbers: []
+  placesNumbers:
+  - {fileID: 1750008452}
+  - {fileID: 1348428442}
+  - {fileID: 1849239788}
+  - {fileID: 491238704}
 --- !u!1 &1530506640
 GameObject:
   m_ObjectHideFlags: 0
