@@ -17,7 +17,7 @@ public class CarApperance : MonoBehaviourPunCallbacks
     int carRego;
     bool regoSet = false;
 
-    public CheckPointController checkpoint;
+    public CheckPointController checkPoint;
 
 
     void Start()
