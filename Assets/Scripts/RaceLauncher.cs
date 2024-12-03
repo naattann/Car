@@ -29,7 +29,7 @@ public class RaceLauncher : MonoBehaviourPunCallbacks
     public void StartTrial()
     {
         SceneManager.LoadScene(0);
-        OnConnectedToMaster()
+        OnConnectedToMaster();
     }
 
     public override void OnConnectedToMaster()
