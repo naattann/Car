@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Fuel : MonoBehaviour
+public class Fuel : MonoBehaviour, IAnimal
 {
     Collider col;
     Renderer rend;
@@ -16,22 +16,29 @@ public class Fuel : MonoBehaviour
         col = GetComponent<Collider>();
         col.enabled = true;
         myColor = rend.material.color;
+
     }
 
 
     public IEnumerator UseFuel()
     {
-        col.enabled = false;
-        rend.material.color = gray;
-        rend.material.SetColor("_EmissionColor", gray);
-        yield return new WaitForSeconds(10);
-        col.enabled = true;
-        rend.material.color = myColor;
-        rend.material.SetColor("_EmissionColor", myColor);
+
+        while(True)
+        {
+            col.enabled = false;
+            rend.material.color = gray;
+            rend.material.SetColor("_EmissionColor", gray);
+            yield return null;
+        }
+        
     }
 
     void Update()
     {
+        while(True)
+        {
+
+        }
         transform.Rotate(new Vector3(0.4f, -0.4f, 0.4f));
     }
 
