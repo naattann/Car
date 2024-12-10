@@ -22,23 +22,14 @@ public class Fuel : MonoBehaviour
 
     public IEnumerator UseFuel()
     {
-
-        while(True)
-        {
             col.enabled = false;
             rend.material.color = gray;
             rend.material.SetColor("_EmissionColor", gray);
-            yield return null;
-        }
-        
+            yield return null;  
     }
 
     void Update()
     {
-        while(True)
-        {
-
-        }
         transform.Rotate(new Vector3(0.4f, -0.4f, 0.4f));
     }
 
