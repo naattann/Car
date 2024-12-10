@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Fuel : MonoBehaviour, IAnimal
+public class Fuel : MonoBehaviour
 {
     Collider col;
     Renderer rend;
