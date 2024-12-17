@@ -16,16 +16,18 @@ public class Fuel : MonoBehaviour
         col = GetComponent<Collider>();
         col.enabled = true;
         myColor = rend.material.color;
-
     }
 
 
     public IEnumerator UseFuel()
     {
-            col.enabled = false;
-            rend.material.color = gray;
-            rend.material.SetColor("_EmissionColor", gray);
-            yield return null;  
+        col.enabled = false;
+        rend.material.color = gray;
+        rend.material.SetColor("_EmissionColor", gray);
+        yield return new WaitForSeconds(10);
+        col.enabled = true;
+        rend.material.color = myColor;
+        rend.material.SetColor("_EmissionColor", myColor);
     }
 
     void Update()

@@ -5,21 +5,22 @@ using UnityEngine.UI;
 
 public class DrivingScript : MonoBehaviour
 {
-    public WheelScript[] wheels; 
-    public float torque = 200; 
-    public float maxSteerAngle = 30; 
-    public float maxBrakeTorque = 500; 
-    public float maxSpeed = 150; 
-    public Rigidbody rb;
+    public WheelScript[] wheels; //tu będą wszystkie nasze koła
 
-    public float currentSpeed;
+    public float torque = 200; //moment obrotowy
+    public float maxSteerAngle = 30; //maxymalny kąt wychylenia
+    public float maxBrakeTorque = 500; //moment hamowania
+    public float maxSpeed = 200; //max predkość
+    public Rigidbody rb;
+    public float currentSpeed; //aktualna prędkość
+    public float maxGear = 6;
+
     public AudioSource engineSound;
 
-    float rpm; 
-    public int currentGear = 1; 
-    public float currentGearPerc; 
-    public int numGears = 5;
-    
+    float rpm; //obroty na minutę
+    public int currentGear = 1; //aktualny bieg
+    float currentGearPerc; //aktualny bieg wyrażony w procentach
+
     public GameObject backLights;
 
     public GameObject cameraTarget;
@@ -37,7 +38,6 @@ public class DrivingScript : MonoBehaviour
 
     }
 
-
     public void Drive(float accel, float brake, float steer)
     {
         accel = Mathf.Clamp(accel, -1, 1);
@@ -45,22 +45,35 @@ public class DrivingScript : MonoBehaviour
         brake = Mathf.Clamp(brake, 0, 1) * maxBrakeTorque;
 
         ////włączanie światła
-        if (brake != 0) backLights.SetActive(true);
-        else backLights.SetActive(false);
+        if (brake != 0)
+        {
+            backLights.SetActive(true);
+        }
+        else
+        {
+            backLights.SetActive(false);
+        }
         ////
 
         float thrustTorque = 0;
 
-        currentSpeed = rb.velocity.magnitude * 5;
-        if (currentSpeed < maxSpeed) thrustTorque = accel * torque;
-
+        currentSpeed = rb.velocity.magnitude * 3;
+        if (currentSpeed < maxSpeed)
+        {
+            thrustTorque = accel * torque;
+        }
 
         foreach (WheelScript wheel in wheels)
         {
             wheel.wheelCollider.motorTorque = thrustTorque;
-            if (wheel.frontWheel) wheel.wheelCollider.steerAngle = steer;
-            else wheel.wheelCollider.brakeTorque = brake;
-
+            if (wheel.frontWheel)
+            {
+                wheel.wheelCollider.steerAngle = steer;
+            }
+            else
+            {
+                wheel.wheelCollider.brakeTorque = brake;
+            }
 
             Quaternion quat;
             Vector3 position;
@@ -70,28 +83,25 @@ public class DrivingScript : MonoBehaviour
         }
     }
 
-
-
     public void EngineSound()
     {
-
-        float gearPercentage = (1 / (float)numGears);
-        float targetGearFactor = Mathf.InverseLerp(gearPercentage * currentGear, gearPercentage * (currentGear + 1), Mathf.Abs(currentSpeed / maxSpeed));
-
+        float gears = 5;
+        float gearPerc = (1f / gears);
+        currentSpeed = rb.velocity.magnitude * 3;
+        float targetGearFactor = Mathf.InverseLerp(gearPerc * currentGear, gearPerc * (currentGear + 1), Mathf.Abs(currentSpeed / maxSpeed));
         currentGearPerc = Mathf.Lerp(currentGearPerc, targetGearFactor, Time.deltaTime * 5f);
 
-        var gearNumFactor = currentGear / (float)numGears;
-        rpm = Mathf.Lerp(gearNumFactor, 1, currentGearPerc);
+        var gearsFactor = currentGear / (float)gears;
+        rpm = Mathf.Lerp(gearsFactor, 1, currentGearPerc);
+        float speedPerc = Mathf.Abs(currentSpeed / maxSpeed);
+        float upperGear = (1 / (float)gears) * (currentGear + 1);
+        float downGear = (1 / (float)gears) * currentGear;
 
-        float speedPercentage = Mathf.Abs(currentSpeed / maxSpeed);
-        float upperGearMax = (1 / (float)numGears) * (currentGear + 1);
-        float downGearMax = (1 / (float)numGears) * currentGear;
-
-        if (currentGear > 0 && speedPercentage < downGearMax) currentGear--;
-        if (speedPercentage > upperGearMax && (currentGear < (numGears - 1))) currentGear++;
+        if (currentGear > 0 && speedPerc < downGear) currentGear--;
+        if (currentGear > upperGear && (currentGear < (gears - 1))) currentGear--;
 
         float pitch = Mathf.Lerp(1, 6, rpm);
-        engineSound.pitch = Mathf.Min(6, pitch) * 0.15f;
+        engineSound.pitch = Mathf.Min(6, pitch) * 0.25f;
 
     }
 

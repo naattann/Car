@@ -8,6 +8,7 @@ public class AddFuel : MonoBehaviour
 
     public bool Add()
     {
+
         if (ds.enabled)
         {
             ds.nitroFuel += 1;
@@ -19,5 +20,6 @@ public class AddFuel : MonoBehaviour
         {
             return false;
         }
+
     }
 }

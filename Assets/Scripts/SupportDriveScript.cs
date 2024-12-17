@@ -30,9 +30,15 @@ public class SupportDriveScript : MonoBehaviour
 
     void Update()
     {
-        if (transform.up.y > 0.5f || rb.velocity.magnitude > 1) lastTimeChecked = Time.time;
-        if (Time.time > lastTimeChecked + 3) TurnBackCar();
+        if (transform.up.y > 0.5f || rb.velocity.magnitude > 1)
+        {
+            lastTimeChecked = Time.time;
+        }
 
+        if (Time.time > lastTimeChecked + 3)
+        {
+            TurnBackCar();
+        }
     }
 
     void HoldWheelOnGround(WheelCollider[] wheels)
@@ -43,11 +49,9 @@ public class SupportDriveScript : MonoBehaviour
 
         bool groundedL = wheels[0].GetGroundHit(out hit);
         if (groundedL) leftRiding = (-wheels[0].transform.InverseTransformPoint(hit.point).y - wheels[0].radius) / wheels[0].suspensionDistance;
-        else leftRiding = 1;
 
         bool groundedR = wheels[1].GetGroundHit(out hit);
         if (groundedR) rightRiding = (-wheels[1].transform.InverseTransformPoint(hit.point).y - wheels[1].radius) / wheels[1].suspensionDistance;
-        else rightRiding = 1;
 
         float antiRollForce = (leftRiding - rightRiding) * antiRoll;
 
