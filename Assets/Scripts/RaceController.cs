@@ -123,6 +123,10 @@ public class RaceController : MonoBehaviourPunCallbacks
 
     public void LoadScene(int index)
     {
+        if(index == 0)
+        {
+            PhotonNetwork.Disconnect();
+        }
         SceneManager.LoadScene(index);
     }
 
